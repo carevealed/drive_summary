@@ -18,25 +18,57 @@ def report(data, other_files):
         print other_file
     print "\\=========================== Non-AV files on drive: END ===========================/"
     print "\n=================== AUDIO FILES ==================="
-    print "The number of mp3 files are: \t\t" + str(data["mp3_counter"])
-    print "The number of wav files are: \t\t" + str(data["wave_counter"])
+    if data["mp3_counter"] != 0:
+        print "The number of mp3 files are: \t\t" + str(data["mp3_counter"])
+
+    if data["wave_counter"] != 0:
+        print "The number of wav files are: \t\t" + str(data["wave_counter"])
+
     print "\n=================== VIDEO FILES ==================="
-    print "The number of avi files are: \t\t" + str(data["avi_counter"])
-    print "The number of dv files are: \t\t" + str(data["dv_counter"])
-    print "The number of mov files are: \t\t" + str(data["mov_counter"])
-    print "The number of mp4 files are: \t\t" + str(data["mp4_counter"])
-    print "The number of m4v files are: \t\t" + str(data["m4v_counter"])
+    if data["avi_counter"] != 0:
+        print "The number of avi files are: \t\t" + str(data["avi_counter"])
+
+    if data["dv_counter"] != 0:
+        print "The number of dv files are: \t\t" + str(data["dv_counter"])
+
+    if data["mov_counter"] != 0:
+        print "The number of mov files are: \t\t" + str(data["mov_counter"])
+
+    if data["mp4_counter"] != 0:
+        print "The number of mp4 files are: \t\t" + str(data["mp4_counter"])
+
+    if data["m4v_counter"] != 0:
+        print "The number of m4v files are: \t\t" + str(data["m4v_counter"])
+
     print "\n=================== IMAGE FILES ==================="
-    print "The number of tif files are: \t\t" + str(data["tiff_counter"])
-    print "The number of jpg files are: \t\t" + str(data["jpeg_counter"])
-    print "The number of bmp files are: \t\t" + str(data["bmp_counter"])
-    print "The number of gif files are: \t\t" + str(data["gif_counter"])
-    print "The number of png files are: \t\t" + str(data["png_counter"])
+    if data["tiff_counter"] != 0:
+        print "The number of tif files are: \t\t" + str(data["tiff_counter"])
+
+    if data["jpeg_counter"] != 0:
+        print "The number of jpg files are: \t\t" + str(data["jpeg_counter"])
+
+    if data["bmp_counter"] != 0:
+        print "The number of bmp files are: \t\t" + str(data["bmp_counter"])
+
+    if data["gif_counter"] != 0:
+        print "The number of gif files are: \t\t" + str(data["gif_counter"])
+
+    if data["png_counter"] != 0:
+        print "The number of png files are: \t\t" + str(data["png_counter"])
+
     print "\n================= DOCUMENT FILES =================="
-    print "The number of excel files are: \t\t" + str(data["excel_counter"])
-    print "The number of rich text \"rtf\" files are:" + str(data["rtf_counter"])
-    print "The number of doc files are: \t\t" + str(data["doc_counter"])
-    print "The number of pdf files are: \t\t" + str(data["pdf_counter"])
+    if data["excel_counter"] != 0:
+        print "The number of excel files are: \t\t" + str(data["excel_counter"])
+
+    if data["rtf_counter"] != 0:
+        print "The number of rich text \"rtf\" files are:" + str(data["rtf_counter"])
+
+    if data["doc_counter"] != 0:
+        print "The number of doc files are: \t\t" + str(data["doc_counter"])
+
+    if data["pdf_counter"] != 0:
+        print "The number of pdf files are: \t\t" + str(data["pdf_counter"])
+
     print "\n===================== SUMMARY ====================="
     print "The number of video files are: \t\t" + str(data["video_counter"])
     print "The number of audio files are: \t\t" + str(data["audio_counter"])
@@ -179,7 +211,11 @@ def get_data(input_argument):
 
 def main():
     other_files = []
-    input_argument = str(argv[1])
+    try:
+        input_argument = str(argv[1])
+    except IndexError:
+        print "Useage: " + path.basename(__file__) + " directory"
+        return
     # check if path is valid
     if not path.isdir(input_argument):
         print "Not Valid directory"
