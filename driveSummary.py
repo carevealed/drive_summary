@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from sys import argv, stdout
+from sys import argv, stdout, stderr
 from os import walk, path
 
 
@@ -22,8 +22,24 @@ def report(data, other_files):
         if data["mp3_counter"] != 0:
             print "The number of mp3 files are: \t\t" + str(data["mp3_counter"])
 
+        if data["m4a_counter"] != 0:
+            print "The number of m4a files are: \t\t" + str(data["m4a_counter"])
+
+        if data["mpc_counter"] != 0:
+            print "The number of musepack files are: \t" + str(data["mpc_counter"])
+
         if data["wave_counter"] != 0:
             print "The number of wav files are: \t\t" + str(data["wave_counter"])
+
+        if data["flac_counter"] != 0:
+            print "The number of flac files are: \t\t" + str(data["flac_counter"])
+
+        if data["ogg_counter"] != 0:
+            print "The number of ogg files are: \t\t" + str(data["ogg_counter"])
+
+        if data["wma_counter"] != 0:
+            print "The number of wma files are: \t\t" + str(data["wma_counter"])
+
     if data["video_counter"] != 0:
         print "\n=================== VIDEO FILES ==================="
         if data["avi_counter"] != 0:
@@ -40,6 +56,7 @@ def report(data, other_files):
 
         if data["m4v_counter"] != 0:
             print "The number of m4v files are: \t\t" + str(data["m4v_counter"])
+
     if data["image_counter"] != 0:
         print "\n=================== IMAGE FILES ==================="
         if data["tiff_counter"] != 0:
@@ -56,6 +73,7 @@ def report(data, other_files):
 
         if data["png_counter"] != 0:
             print "The number of png files are: \t\t" + str(data["png_counter"])
+
     if data["document_counter"] != 0:
         print "\n================= DOCUMENT FILES =================="
         if data["excel_counter"] != 0:
@@ -90,6 +108,11 @@ def get_data(input_argument):
     data = {
         "wave_counter": 0,
         "mp3_counter": 0,
+        "m4a_counter": 0,
+        "mpc_counter": 0,
+        "flac_counter": 0,
+        "wma_counter": 0,
+        "ogg_counter": 0,
         "mov_counter": 0,
         "mp4_counter": 0,
         "m4v_counter": 0,
@@ -125,33 +148,44 @@ def get_data(input_argument):
                     if extension == ".md5":
                         data["md5_counter"] += 1
                         continue
+
 # ---------------------------------------------- audio -----------------------------------------------------------------
-                    elif extension.lower() == ".wav":
-                        data["wave_counter"] += 1
+
+                    elif extension.lower() == ".flac":
+                        data["flac_counter"] += 1
+                        data["audio_counter"] += 1
+                        continue
+
+                    elif extension.lower() == ".m4a":
+                        data["m4a_counter"] += 1
                         data["audio_counter"] += 1
                         continue
 
                     elif extension.lower() == ".mp3":
                         data["mp3_counter"] += 1
+                        data["audio_counter"] += 1
+                        continue
 
+                    elif extension.lower() == ".mpc":
+                        data["mpc_counter"] += 1
+                        data["audio_counter"] += 1
+                        continue
+
+                    elif extension.lower() == ".ogg":
+                        data["ogg_counter"] += 1
+                        data["audio_counter"] += 1
+                        continue
+
+                    elif extension.lower() == ".wav":
+                        data["wave_counter"] += 1
+                        data["audio_counter"] += 1
+                        continue
+
+                    elif extension.lower() == ".wma":
+                        data["wma_counter"] += 1
                         data["audio_counter"] += 1
                         continue
 # --------------------------------------------- video -----------------------------------------------------------------
-                    elif extension.lower() == ".mov":
-                        data["mov_counter"] += 1
-                        data["video_counter"] += 1
-                        continue
-
-                    elif extension.lower() == ".mp4":
-                        data["mp4_counter"] += 1
-                        data["video_counter"] += 1
-                        continue
-
-                    elif extension.lower() == ".m4v":
-                        data["m4v_counter"] += 1
-                        data["video_counter"] += 1
-                        continue
-
                     elif extension.lower() == ".avi":
                         data["avi_counter"] += 1
                         data["video_counter"] += 1
@@ -161,18 +195,22 @@ def get_data(input_argument):
                         data["dv_counter"] += 1
                         data["video_counter"] += 1
                         continue
+
+                    elif extension.lower() == ".m4v":
+                        data["m4v_counter"] += 1
+                        data["video_counter"] += 1
+                        continue
+
+                    elif extension.lower() == ".mov":
+                        data["mov_counter"] += 1
+                        data["video_counter"] += 1
+                        continue
+
+                    elif extension.lower() == ".mp4":
+                        data["mp4_counter"] += 1
+                        data["video_counter"] += 1
+                        continue
 # ---------------------------------------------- image -----------------------------------------------------------------
-
-                    elif extension.lower() == ".tif" or extension.lower() == ".tiff":
-                        data["tiff_counter"] += 1
-                        data["image_counter"] += 1
-                        continue
-
-                    elif extension.lower() == ".jpg" or extension.lower() == ".jpeg":
-                        data["jpeg_counter"] += 1
-                        data["image_counter"] += 1
-                        continue
-
                     elif extension.lower() == ".bmp":
                         data["bmp_counter"] += 1
                         data["image_counter"] += 1
@@ -183,8 +221,18 @@ def get_data(input_argument):
                         data["image_counter"] += 1
                         continue
 
+                    elif extension.lower() == ".jpg" or extension.lower() == ".jpeg":
+                        data["jpeg_counter"] += 1
+                        data["image_counter"] += 1
+                        continue
+
                     elif extension.lower() == ".png":
                         data["png_counter"] += 1
+                        data["image_counter"] += 1
+                        continue
+
+                    elif extension.lower() == ".tif" or extension.lower() == ".tiff":
+                        data["tiff_counter"] += 1
                         data["image_counter"] += 1
                         continue
 # -------------------------------------------- document ----------------------------------------------------------------
@@ -208,6 +256,7 @@ def get_data(input_argument):
                         data["doc_counter"] += 1
                         data["document_counter"] += 1
                         continue
+
                     elif extension.lower() == ".pdf":
                         data["pdf_counter"] += 1
                         data["document_counter"] += 1
@@ -224,11 +273,11 @@ def main():
     try:
         input_argument = str(argv[1])
     except IndexError:
-        print "Useage: " + path.basename(__file__) + " directory"
+        print "Usage: " + path.basename(__file__) + " directory"
         return
     # check if path is valid
     if not path.isdir(input_argument):
-        print "Not Valid directory"
+        stderr.write(str("\"" + input_argument + "\"is not a valid directory"))
         return
     else:
         print "Checking: " + input_argument,
