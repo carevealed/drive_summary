@@ -114,91 +114,91 @@ def get_data(input_argument):
         for root, dir, files in walk(input_argument):
             for file in files:
                 if path.isfile(path.join(root, file)):
-                    file_name, extention = path.splitext(file)
+                    file_name, extension = path.splitext(file)
                     data["total_counter"] += 1
                     data["total_file_size"] += path.getsize(path.join(root, file))
-                    if extention == ".md5":
+                    if extension == ".md5":
                         data["md5_counter"] += 1
                         continue
 # ---------------------------------------------- audio -----------------------------------------------------------------
-                    elif extention.lower() == ".wav":
+                    elif extension.lower() == ".wav":
                         data["wave_counter"] += 1
                         data["audio_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".mp3":
+                    elif extension.lower() == ".mp3":
                         data["mp3_counter"] += 1
 
                         data["audio_counter"] += 1
                         continue
 # --------------------------------------------- video -----------------------------------------------------------------
-                    elif extention.lower() == ".mov":
+                    elif extension.lower() == ".mov":
                         data["mov_counter"] += 1
                         data["video_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".mp4":
+                    elif extension.lower() == ".mp4":
                         data["mp4_counter"] += 1
                         data["video_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".m4v":
+                    elif extension.lower() == ".m4v":
                         data["m4v_counter"] += 1
                         data["video_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".avi":
+                    elif extension.lower() == ".avi":
                         data["avi_counter"] += 1
                         data["video_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".dv":
+                    elif extension.lower() == ".dv":
                         data["dv_counter"] += 1
                         data["video_counter"] += 1
                         continue
 # ---------------------------------------------- image -----------------------------------------------------------------
 
-                    elif extention.lower() == ".tif" or extention.lower() == ".tiff":
+                    elif extension.lower() == ".tif" or extension.lower() == ".tiff":
                         data["tiff_counter"] += 1
                         data["image_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".jpg" or extention.lower() == ".jpeg":
+                    elif extension.lower() == ".jpg" or extension.lower() == ".jpeg":
                         data["jpeg_counter"] += 1
                         data["image_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".bmp":
+                    elif extension.lower() == ".bmp":
                         data["bmp_counter"] += 1
                         data["image_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".gif":
+                    elif extension.lower() == ".gif":
                         data["gif_counter"] += 1
                         data["image_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".png":
+                    elif extension.lower() == ".png":
                         data["png_counter"] += 1
                         data["image_counter"] += 1
                         continue
 # -------------------------------------------- document ----------------------------------------------------------------
 
-                    elif extention.lower() == ".xlsx":
+                    elif extension.lower() == ".xlsx":
                         data["excel_counter"] += 1
                         data["document_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".rtf":
+                    elif extension.lower() == ".rtf":
                         data["rtf_counter"] += 1
                         data["document_counter"] += 1
                         continue
 
-                    elif extention.lower() == ".doc":
+                    elif extension.lower() == ".doc":
                         data["doc_counter"] += 1
                         data["document_counter"] += 1
                         continue
-                    elif extention.lower() == ".pdf":
+                    elif extension.lower() == ".pdf":
                         data["pdf_counter"] += 1
                         data["document_counter"] += 1
                         continue
