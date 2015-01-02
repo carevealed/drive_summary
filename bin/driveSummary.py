@@ -3,7 +3,6 @@ from sys import argv, stdout, stderr
 from os import walk, path
 
 
-
 def size_of_human(num):
     num = int(num)
     for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
@@ -286,8 +285,9 @@ def main():
         other_files, data = get_data(input_argument)
 
         print "...done"
-        # report
-        report(data, other_files)
+
+        report(data, other_files) # Generate a report
+
 
 
 if __name__ == '__main__':
