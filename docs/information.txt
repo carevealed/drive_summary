@@ -1,0 +1,1 @@
+This script looks at all files in a given folder and generates a report based on the Audio, Video, and image files found.
