@@ -1,18 +1,34 @@
+from os.path import isdir
+
 __author__ = 'CAVPP'
 #!/usr/bin/python
 
 import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
-import time
+from PySide.QtUiTools import *
+import gui
+# import time
+import os
+
 
 from driveSummary.driveSummary import *
 
+class main_window(QMainWindow, gui.Ui_MainWindow):
+    def __init__(self, parent=None):
+        super(main_window, self).__init__(parent)
+        self.selected_directory = ""
+        self.other_files = []
+        self.data = []
+        self.stat_items = []
 
-class WindowForm(QDialog):
+        self.setupUi(self)
+        self.select_drive_button.clicked.connect(self.select_drive)
+        self.export_report_text_button.clicked.connect(self.export_report_to_file)
 
-    def generate_report(self):
-
+    def populate_searched_for_files(self):
+        if not self.stats_tree.isEnabled():
+            self.stats_tree.setEnabled(True)
         if self.data["audio_counter"] != 0:
 
             if self.data["mp3_counter"] != 0:
@@ -21,7 +37,6 @@ class WindowForm(QDialog):
                                                         ".mp3",
                                                         str(self.data["mp3_counter"])]))
                 # self.stats.addItem("mp3: " + str(self.data["mp3_counter"]))
-
 
             if self.data["m4a_counter"] != 0:
                 self.stat_items.append(QTreeWidgetItem(["Audio",
@@ -151,11 +166,13 @@ class WindowForm(QDialog):
                                                         ".pdf",
                                                         str(self.data["pdf_counter"])]))
 
-    def populate_data(self):
-        self.other_files, self.data = get_data("/Volumes/DPLA0002")
-        self.generate_report()
+    def clear_old_data(self):
+        self.summary_tree.clear()
+        self.stats_tree.clear()
+        self.other_files_list.clear()
 
-        summary_item = QTreeWidgetItem([
+    def _populate_summary_stats(self):
+        self.summary_item = QTreeWidgetItem([
             str(self.data["video_counter"]),
             str(self.data["audio_counter"]),
             str(self.data["image_counter"]),
@@ -164,84 +181,81 @@ class WindowForm(QDialog):
             str(self.data["other_counter"]),
             str(self.data["total_counter"]),
             str(size_of_human(self.data["total_file_size"])),
-            ])
-        self.summary_tree.addTopLevelItem(summary_item)
+        ])
+        self.summary_tree.addTopLevelItem(self.summary_item)
+        # for item in self.stat_items:
+        #     self.stats_tree.addTopLevelItems(item)
+        self.stats_tree.addTopLevelItems(self.stat_items)
 
-        for item in self.stat_items:
-            self.stats_tree.addTopLevelItem(item)
+    def clear_old_data(self):
+        self.summary_tree.clear()
+        self.stats_tree.clear()
+        self.other_files_list.clear()
 
-        for file_name in self.other_files:
-            self.other_files_list.addItem(file_name)
+    def _populate_summary_stats(self):
+        if not self.summary_tree.isEnabled():
+            self.summary_tree.setEnabled(True)
+        self.summary_item = QTreeWidgetItem([
+            str(self.data["video_counter"]),
+            str(self.data["audio_counter"]),
+            str(self.data["image_counter"]),
+            str(self.data["document_counter"]),
+            str(self.data["md5_counter"]),
+            str(self.data["other_counter"]),
+            str(self.data["total_counter"]),
+            str(size_of_human(self.data["total_file_size"])),
+        ])
+        self.summary_tree.addTopLevelItem(self.summary_item)
+        self.stats_tree.addTopLevelItems(self.stat_items)
 
-    def export_report_to_file(self):
-        # ToDo create method to export report to file
+    def _populate_other_files(self):
+        if not self.other_files_list.isEnabled():
+            self.other_files_list.setEnabled(True)
+        self.other_files_list.addItems(self.other_files)
+
+    def _populate_data(self):
+        self.populate_searched_for_files()
+        self._populate_summary_stats()
+        self._populate_other_files()
+        if not self.export_report_text_button.isEnabled():
+            self.export_report_text_button.setEnabled(True)
+
+    def select_drive(self):
+
+        new_directory = QFileDialog.getExistingDirectory()
+        if isdir(new_directory):
+            self.selected_directory = new_directory
+            self.clear_old_data()
+            self.other_files, self.data = get_data(self.selected_directory)
+            self._populate_data()
+
         pass
 
-    def __init__(self, parent=None):
-        super(WindowForm, self).__init__(parent)
-        self.select_drive_button = QPushButton()
-        self.select_drive_button.setText("Select Drive to Scan")
-        # ToDo add signal and slots to select drive
-
-        self.summary_label = QLabel("Summary")
-        self.summary_tree = QTreeWidget()
-        self.summary_tree.setFixedHeight(45)
-        self.summary_tree.setMinimumWidth(820)
-        self.summary_tree.setSelectionMode(QAbstractItemView.NoSelection)
-        self.summary_tree.setHeaderLabels(["Video Files",
-                                           "Audio Files",
-                                           "Image Files",
-                                           "Document Files",
-                                           "MD5 Files",
-                                           "Other Files",
-                                           "Total Files",
-                                           "Total File Data"])
-
-        self.stat_items = []
-        self.stats_label = QLabel("Audio, Video, Image, Document Files")
-        self.stats_tree = QTreeWidget()
-        self.stats_tree.setSelectionMode(QAbstractItemView.NoSelection)
-        self.stats_tree.setHeaderLabels(["Type", "Format", "File Extension", "Number of Files"])
-
-        self.other_files_list = QListWidget()
-        self.other_files_list.setSelectionMode(QAbstractItemView.NoSelection)
-
-
-        self.save_report_button = QPushButton()
-        self.save_report_button.setText("Save Report to file")
-        # ToDo add signal and slot to save report
-
-        # self.line_edit = QLineEdit("Here is the Summary of the drive")
-        self.other_files_label = QLabel("Non-AV or Image Files")
-
-        layout = QVBoxLayout()
-        layout.addWidget(self.select_drive_button)
-        layout.addWidget(self.summary_label)
-        layout.addWidget(self.summary_tree)
-        layout.addWidget(self.stats_label)
-        layout.addWidget(self.stats_tree)
-        layout.addWidget(self.other_files_label)
-        layout.addWidget(self.other_files_list)
-        layout.addWidget(self.save_report_button)
-
-        self.setLayout(layout)
-        self.setWindowTitle("Summary")
-        self.populate_data()
+    def export_report_to_file(self):
+        # TODO create method to export report to file
+        # print report(self.data, self.other_files)
+        fileName, filter = QFileDialog.getSaveFileName(self, "Save Hard Drive Report", '',
+                "Text File(*.txt);;All Files (*)")
+        print fileName
+        if fileName:
+            try:
+                print "opening"
+                f = open(fileName, 'w')
+                print f.closed
+                print "writing"
+                f.write(str(report(self.data, self.other_files)))
+                f.close()
+                print "done"
+            except IOError:
+                print "IO Error"
+        pass
 
 
 def main():
-    # app = QApplication(sys.argv)
-    #
-    # label = QLabel("Hello World")
-    # label.setWindowFlags(Qt.SplashScreen)
-    # label.show()
-    # QTimer.singleShot(10000, app.quit)
-    # # time.sleep(2)
-    # app.exec_()
 
     app = QApplication(sys.argv)
-    main_window = WindowForm()
-    main_window.show()
+    main_win = main_window()
+    main_win.show()
     app.exec_()
 
 
