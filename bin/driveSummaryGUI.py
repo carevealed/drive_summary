@@ -25,8 +25,22 @@ class main_window(QMainWindow, gui.Ui_MainWindow):
         self.setupUi(self)
         self.select_drive_button.clicked.connect(self.select_drive)
         self.export_report_text_button.clicked.connect(self.export_report_to_file)
+        self.summary_item = QTreeWidgetItem([
+            str(""),
+            str(""),
+            str(""),
+            str(""),
+            str(""),
+            str(""),
+            str(""),
+            str(""),
+        ])
+        self.summary_tree.addTopLevelItem(self.summary_item)
+        # print "constructor done"
+        # print self.summary_item.data(0,1) + "dgdg"
 
     def populate_searched_for_files(self):
+        # TODO fix populate searched filee. Possibly Make each QTreeWidgetItem a member.
         if not self.stats_tree.isEnabled():
             self.stats_tree.setEnabled(True)
         if self.data["audio_counter"] != 0:
@@ -36,7 +50,6 @@ class main_window(QMainWindow, gui.Ui_MainWindow):
                                                         "MPEG-2 Audio Layer III",
                                                         ".mp3",
                                                         str(self.data["mp3_counter"])]))
-                # self.stats.addItem("mp3: " + str(self.data["mp3_counter"]))
 
             if self.data["m4a_counter"] != 0:
                 self.stat_items.append(QTreeWidgetItem(["Audio",
@@ -165,46 +178,24 @@ class main_window(QMainWindow, gui.Ui_MainWindow):
                                                         "Portable Document Format",
                                                         ".pdf",
                                                         str(self.data["pdf_counter"])]))
+            self.stats_tree.addTopLevelItems(self.stat_items)
 
     def clear_old_data(self):
-        self.summary_tree.clear()
-        self.stats_tree.clear()
-        self.other_files_list.clear()
-
-    def _populate_summary_stats(self):
-        self.summary_item = QTreeWidgetItem([
-            str(self.data["video_counter"]),
-            str(self.data["audio_counter"]),
-            str(self.data["image_counter"]),
-            str(self.data["document_counter"]),
-            str(self.data["md5_counter"]),
-            str(self.data["other_counter"]),
-            str(self.data["total_counter"]),
-            str(size_of_human(self.data["total_file_size"])),
-        ])
-        self.summary_tree.addTopLevelItem(self.summary_item)
-        self.stats_tree.addTopLevelItems(self.stat_items)
-
-    def clear_old_data(self):
-        self.summary_tree.clear()
-        self.stats_tree.clear()
+        # TODO: fix clear bug (http://stackoverflow.com/questions/22934043/pyside-qtreewidget-clear-causes-crash)
+        # self.stats_tree.clear()
         self.other_files_list.clear()
 
     def _populate_summary_stats(self):
         if not self.summary_tree.isEnabled():
             self.summary_tree.setEnabled(True)
-        self.summary_item = QTreeWidgetItem([
-            str(self.data["video_counter"]),
-            str(self.data["audio_counter"]),
-            str(self.data["image_counter"]),
-            str(self.data["document_counter"]),
-            str(self.data["md5_counter"]),
-            str(self.data["other_counter"]),
-            str(self.data["total_counter"]),
-            str(size_of_human(self.data["total_file_size"])),
-        ])
-        self.summary_tree.addTopLevelItem(self.summary_item)
-        self.stats_tree.addTopLevelItems(self.stat_items)
+        self.summary_item.setData(0, 0, str(self.data["video_counter"]))
+        self.summary_item.setData(1, 0, str(self.data["audio_counter"]))
+        self.summary_item.setData(2, 0, str(self.data["image_counter"]))
+        self.summary_item.setData(3, 0, str(self.data["document_counter"]))
+        self.summary_item.setData(4, 0, str(self.data["md5_counter"]))
+        self.summary_item.setData(5, 0, str(self.data["other_counter"]))
+        self.summary_item.setData(6, 0, str(self.data["total_counter"]))
+        self.summary_item.setData(7, 0, str(size_of_human(self.data["total_file_size"])))
 
     def _populate_other_files(self):
         if not self.other_files_list.isEnabled():
