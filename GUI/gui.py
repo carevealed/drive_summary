@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gui.ui'
 #
-# Created: Tue Jan  6 15:40:33 2015
+# Created: Wed Jan  7 10:06:41 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(854, 525)
+        MainWindow.resize(875, 525)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.export_report_text_button)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar()
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 854, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 875, 22))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -75,7 +75,6 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        QtCore.QObject.connect(self.select_drive_button, QtCore.SIGNAL("clicked()"), self.stats_tree.update)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -84,11 +83,12 @@ class Ui_MainWindow(object):
         self.groupBox_3.setTitle(QtGui.QApplication.translate("MainWindow", "Summary", None, QtGui.QApplication.UnicodeUTF8))
         self.summary_tree.headerItem().setText(0, QtGui.QApplication.translate("MainWindow", "Video Files", None, QtGui.QApplication.UnicodeUTF8))
         self.summary_tree.headerItem().setText(1, QtGui.QApplication.translate("MainWindow", "Audio Files", None, QtGui.QApplication.UnicodeUTF8))
-        self.summary_tree.headerItem().setText(2, QtGui.QApplication.translate("MainWindow", "Document Files", None, QtGui.QApplication.UnicodeUTF8))
-        self.summary_tree.headerItem().setText(3, QtGui.QApplication.translate("MainWindow", "New Column", None, QtGui.QApplication.UnicodeUTF8))
+        self.summary_tree.headerItem().setText(2, QtGui.QApplication.translate("MainWindow", "Image Files", None, QtGui.QApplication.UnicodeUTF8))
+        self.summary_tree.headerItem().setText(3, QtGui.QApplication.translate("MainWindow", "Document Files", None, QtGui.QApplication.UnicodeUTF8))
         self.summary_tree.headerItem().setText(4, QtGui.QApplication.translate("MainWindow", "MD5 Files", None, QtGui.QApplication.UnicodeUTF8))
         self.summary_tree.headerItem().setText(5, QtGui.QApplication.translate("MainWindow", "Other Files", None, QtGui.QApplication.UnicodeUTF8))
-        self.summary_tree.headerItem().setText(6, QtGui.QApplication.translate("MainWindow", "Total File Data", None, QtGui.QApplication.UnicodeUTF8))
+        self.summary_tree.headerItem().setText(6, QtGui.QApplication.translate("MainWindow", "Total Files", None, QtGui.QApplication.UnicodeUTF8))
+        self.summary_tree.headerItem().setText(7, QtGui.QApplication.translate("MainWindow", "Total Data Size", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("MainWindow", "Audio, Video , Image, Document Files", None, QtGui.QApplication.UnicodeUTF8))
         self.stats_tree.headerItem().setText(0, QtGui.QApplication.translate("MainWindow", "Type", None, QtGui.QApplication.UnicodeUTF8))
         self.stats_tree.headerItem().setText(1, QtGui.QApplication.translate("MainWindow", "Format", None, QtGui.QApplication.UnicodeUTF8))
