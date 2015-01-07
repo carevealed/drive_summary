@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>854</width>
+    <width>875</width>
     <height>525</height>
    </rect>
   </property>
@@ -75,12 +75,12 @@
          </column>
          <column>
           <property name="text">
-           <string>Document Files</string>
+           <string>Image Files</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>New Column</string>
+           <string>Document Files</string>
           </property>
          </column>
          <column>
@@ -95,7 +95,12 @@
          </column>
          <column>
           <property name="text">
-           <string>Total File Data</string>
+           <string>Total Files</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Total Data Size</string>
           </property>
          </column>
         </widget>
@@ -184,7 +189,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>854</width>
+     <width>875</width>
      <height>22</height>
     </rect>
    </property>
@@ -192,22 +197,5 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>select_drive_button</sender>
-   <signal>clicked()</signal>
-   <receiver>stats_tree</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>426</x>
-     <y>45</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>426</x>
-     <y>227</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

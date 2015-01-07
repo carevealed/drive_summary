@@ -2,7 +2,7 @@
 from sys import argv, stdout, stderr
 from os import path
 
-from bin.driveSummary.driveSummary import get_data, report
+from driveSummary.driveSummary import get_data, report
 
 
 def main():
@@ -24,7 +24,7 @@ def main():
 
         print "...done"
 
-        report(data, other_files) # Generate a report
+        print report(data, other_files) # Generate a report
 
 
 if __name__ == '__main__':

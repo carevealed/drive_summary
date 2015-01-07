@@ -1,18 +1,13 @@
+#!/usr/bin/python
 from os.path import isdir
 
 __author__ = 'CAVPP'
-#!/usr/bin/python
 
 import sys
-from PySide.QtCore import *
 from PySide.QtGui import *
-from PySide.QtUiTools import *
-import gui
-# import time
-import os
-
-
+from gui import gui
 from driveSummary.driveSummary import *
+# import time
 
 class main_window(QMainWindow, gui.Ui_MainWindow):
     def __init__(self, parent=None):
@@ -40,7 +35,6 @@ class main_window(QMainWindow, gui.Ui_MainWindow):
         # print self.summary_item.data(0,1) + "dgdg"
 
     def populate_searched_for_files(self):
-        # TODO fix populate searched file. Possibly Make each QTreeWidgetItem a member.
         if not self.stats_tree.isEnabled():
             self.stats_tree.setEnabled(True)
         if self.data["audio_counter"] != 0:
@@ -182,7 +176,6 @@ class main_window(QMainWindow, gui.Ui_MainWindow):
 
     def clear_old_data(self):
         self.stats_tree.clear()
-        # self.stats_tree.rowsRemoved()
         self.other_files_list.clear()
 
     def _populate_summary_stats(self):
