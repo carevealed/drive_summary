@@ -183,8 +183,6 @@ class main_window(QMainWindow, gui.Ui_MainWindow):
             str(size_of_human(self.data["total_file_size"])),
         ])
         self.summary_tree.addTopLevelItem(self.summary_item)
-        # for item in self.stat_items:
-        #     self.stats_tree.addTopLevelItems(item)
         self.stats_tree.addTopLevelItems(self.stat_items)
 
     def clear_old_data(self):
@@ -232,7 +230,6 @@ class main_window(QMainWindow, gui.Ui_MainWindow):
         pass
 
     def export_report_to_file(self):
-        # TODO create method to export report to file
         # print report(self.data, self.other_files)
         fileName, filter = QFileDialog.getSaveFileName(self, "Save Hard Drive Report", '',
                 "Text File(*.txt);;All Files (*)")
