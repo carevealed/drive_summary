@@ -1,1 +1,1 @@
-To install type "python setup.py install"
+# To install type "python setup.py install"
