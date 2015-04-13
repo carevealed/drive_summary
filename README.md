@@ -5,4 +5,4 @@ To install, download the latest version of the whl file in the release tab of th
  
 In a terminal type:
 
-   sudo pip install driveSummary-0.1.1-py2.py3-none-any.whl
+    sudo pip install driveSummary-0.1.1-py2.py3-none-any.whl
